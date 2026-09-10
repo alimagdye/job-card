@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/server.js"
   },
   "keywords": [
     "job card",
@@ -15,13 +15,16 @@
     "typescript"
   ],
   "author": "Ali Magdy",
-  "license": "ISC",
+  "license": "MIT",
   "type": "module",
   "dependencies": {
     "dotenv": "^17.4.2",
-    "openai": "^7.15.0"
+    "express": "^5.2.1",
+    "openai": "^7.15.0",
+    "zod": "^4.6.1"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/node": "^26.5.1",
     "tsx": "^4.23.13",
     "typescript": "^7.0.2"
