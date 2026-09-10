@@ -13,6 +13,7 @@ curl -X POST http://localhost:3000/api/v1/triage \
 ```
 
 ### Invalid request
+
 ```bash
 curl -X POST http://localhost:3000/api/v1/triage \
   -H "Content-Type: application/json" \
@@ -42,3 +43,10 @@ invalid input
        ↓
 field name + error
 ```
+
+## Stage 2 observations
+
+The model generally followed the requested JSON structure across the three test
+inputs. The classification and urgency were reasonable for the examples tested.
+The model occasionally added formatting around the JSON, which will need to be
+handled by the output parsing and validation stage.

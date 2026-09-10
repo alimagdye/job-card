@@ -1,14 +1,26 @@
-import type { TriageInput, TriageOutput } from "../llm/schema.js";
+import type { TriageInput } from "../llm/schema.js";
+import { llmClient } from "../llm/client.js";
+import { loadTriagePrompt } from "../llm/prompt.js";
 
-export function triageMessage(input: TriageInput): TriageOutput {
-  if (process.env.LLM_STUB === "1") {
-    return {
-      category: "other",
-      urgency: "normal",
-      confidence: 0.5,
-      reason: "Stub response for development.",
-    };
-  }
+export async function triageMessage(input: TriageInput): Promise<string> {
+  const systemPrompt: string = await loadTriagePrompt();
 
-  throw new Error("LLM integration is not implemented yet.");
+  const response = await llmClient.chat.completions.create({
+    model: process.env.LLM_MODEL!,
+    temperature: 0,
+    messages: [
+      {
+        role: "system",
+        content: systemPrompt,
+      },
+      {
+        role: "user",
+        content: JSON.stringify({
+          text: input.text,
+        }),
+      },
+    ],
+  });
+
+  return response.choices[0].message.content ?? "";
 }
