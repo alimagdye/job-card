@@ -50,3 +50,7 @@ The model generally followed the requested JSON structure across the three test
 inputs. The classification and urgency were reasonable for the examples tested.
 The model occasionally added formatting around the JSON, which will need to be
 handled by the output parsing and validation stage.
+
+### Retry policy
+
+The OpenAI SDK automatic retries are disabled (`maxRetries: 0`); the application implements its own retries for timeouts, HTTP 429, and HTTP 5xx responses with exponential backoff and jitter.
